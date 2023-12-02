@@ -1,8 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lottie/lottie.dart';
 import 'package:todo/business_logic/bloc/todo_bloc.dart';
 import 'package:todo/presentation/screens/home/detail/detail.dart';
+import 'package:todo/utils/icons/icons.dart';
 
 
 class AllTasksScreen extends StatefulWidget {
@@ -52,8 +54,14 @@ class _AllTasksScreenState extends State<AllTasksScreen> {
       ),
       body: BlocBuilder<TodoBloc, TodoState>(
         builder: (context, state) {
+          if (state is TodoLoading) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
           if (state is TodoLoaded) {
-            return ListView.builder(
+            return state.todos.isEmpty ? Center(child: Lottie.asset(AppIcons.empty, height: 200,repeat: false))
+                : ListView.builder(
               itemCount: state.todos.length,
               itemBuilder: (context, index) => Container(
                 padding: const EdgeInsets.all(10),
@@ -62,7 +70,7 @@ class _AllTasksScreenState extends State<AllTasksScreen> {
                     boxShadow: [BoxShadow(color: Colors.grey.shade300, blurRadius: 10)],
                     borderRadius: BorderRadius.circular(10),
                     color: Colors.white),
-                child: ListTile(
+                child:ListTile(
                   onTap: (){
                     Navigator.push(context, MaterialPageRoute(builder: (context) => TaskDetailScreen(todo: state.todos[index], index: index,)));
                   },

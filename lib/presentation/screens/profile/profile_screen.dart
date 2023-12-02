@@ -24,17 +24,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
               child: Container(
                 width: 150,
                 height: 150,
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.blue
-                ),),),
-            const Gap(50),
-            const Text(
-              'John Doe',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
+                decoration: const BoxDecoration(shape: BoxShape.circle, color: Colors.blue),
               ),
+            ),
+            const Gap(50),
+            const Wrap(
+              children: [
+                Text(
+                  'Zoyidov Nurmuxammad',
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
             ),
           ],
         ),
