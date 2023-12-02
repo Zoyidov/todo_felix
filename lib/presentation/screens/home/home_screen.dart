@@ -70,6 +70,13 @@ class _HomeScreenState extends State<HomeScreen> {
           child: BlocBuilder<TodoBloc, TodoState>(
             builder: (context, state) {
               if (state is TodoLoaded) {
+                final today = DateTime.now();
+                final todayTodos = state.todos
+                    .where((todo) =>
+                todo.dateCreated.day == today.day &&
+                    todo.dateCreated.month == today.month &&
+                    todo.dateCreated.year == today.year)
+                    .toList();
                 return Column(
                   children: [
                     Container(
@@ -99,7 +106,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 fontWeight: FontWeight.w500, fontSize: 20, color: Colors.white),
                           ),
                           Text(
-                            "${state.todos.length} tasks",
+                            "${todayTodos.length} tasks",
                             style: const TextStyle(
                                 fontWeight: FontWeight.w400, fontSize: 16, color: Colors.white),
                           ),
@@ -115,7 +122,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    "Progress ${done > 0 ? (done / state.todos.length * 100).toStringAsFixed(0) : 0}%",
+                                    "Progress ${done > 0 ? (done / todayTodos.length * 100).toStringAsFixed(0) : 0}%",
                                     style: const TextStyle(color: Colors.white),
                                   ),
                                   SizedBox(
