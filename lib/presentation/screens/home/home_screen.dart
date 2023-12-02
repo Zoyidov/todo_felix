@@ -17,7 +17,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  late int done;
+  late int done = 0;
 
   @override
   void initState() {
@@ -122,14 +122,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    "Progress ${done > 0 ? (done / todayTodos.length * 100).toStringAsFixed(0) : 0}%",
+                                    "Progress ${todayTodos.isNotEmpty ? (done / todayTodos.length * 100).toStringAsFixed(0) : 0}%",
                                     style: const TextStyle(color: Colors.white),
                                   ),
                                   SizedBox(
                                     height: 10,
                                     width: MediaQuery.of(context).size.width * 0.5,
                                     child: LinearProgressIndicator(
-                                      value: done > 0 ? done / state.todos.length.toDouble() : 0,
+                                      value: todayTodos.isNotEmpty ? done / state.todos.length.toDouble() : 0,
                                       color: Colors.white,
                                       backgroundColor: Colors.white38,
                                       borderRadius: BorderRadius.circular(10),

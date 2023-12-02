@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:gap/gap.dart';
@@ -179,7 +180,7 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
                 ],
               ),
               const Gap(50),
-              if (!isTaskCompleted)
+              if (!isTaskCompleted && DateFormat('yyyy-MM-dd').format(widget.todo.dateCreated) == DateTime.now().toString().substring(0, 10))
                 ElevatedButton(
                   onPressed: () async {
                     await _saveDoneAndIsCompleted();
